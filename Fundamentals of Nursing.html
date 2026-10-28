@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Fundamentals of Nursing </title>
+    <style>
+        /* ===== BASE ===== */
+        :root {
+            --bg1: #0a0e1a;
+            --bg2: #141e33;
+            --primary: #00d4ff;
+            --primary-dark: #0099cc;
+            --accent: #facc15;
+            --danger: #f87171;
+            --success: #34d399;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #e8edf5;
+            --muted: #94a3b8;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 30px rgba(0, 212, 255, 0.06);
+            --radius: 16px;
+            --header-bg: rgba(255, 255, 255, 0.03);
+            --header-border: rgba(255, 255, 255, 0.04);
+            --footer-border: rgba(255, 255, 255, 0.03);
+            --table-header-bg: rgba(0, 212, 255, 0.08);
+            --card-title-bg: rgba(0, 212, 255, 0.06);
+            --highlight-bg: #facc15;
+            --highlight-text: #0f172a;
+        }
+
+        [data-theme="light"] {
+            --bg1: #f0f4f8;
+            --bg2: #e2e8f0;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --text: #0f172a;
+            --muted: #475569;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --glow: 0 0 30px rgba(0, 212, 255, 0.02);
+            --header-bg: rgba(255, 255, 255, 0.7);
+            --header-border: rgba(0, 0, 0, 0.04);
+            --footer-border: rgba(0, 0, 0, 0.04);
+            --table-header-bg: rgba(0, 212, 255, 0.12);
+            --card-title-bg: rgba(0, 212, 255, 0.08);
+            --highlight-bg: #facc15;
+            --highlight-text: #0f172a;
+        }
+
+        .highlight-text {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--bg1), var(--bg2), #0f1a2b);
+            min-height: 100vh;
+            color: var(--text);
+            padding: 16px 8px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            transition: background 0.4s ease;
+        }
+        .app { max-width: 1100px; width: 100%; }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 16px 16px;
+            background: var(--header-bg);
+            border-radius: 20px;
+            border: 1px solid var(--header-border);
+            backdrop-filter: blur(4px);
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 4px 25px rgba(0, 212, 255, 0.15);
+            transition: color 0.3s ease;
+        }
+        [data-theme="light"] .header h1 { color: #0f172a; text-shadow: none; }
+        .header h1 .highlight {
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header .sub {
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+        .header .creator {
+            color: var(--muted);
+            font-size: 0.75rem;
+            margin-top: 4px;
+        }
+        .header .creator .name { color: var(--text); font-weight: 700; }
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+        }
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.08);
+            transform: scale(1.05);
+        }
+        [data-theme="light"] .theme-toggle {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        /* ===== TABS ===== */
+        .tabs-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 30px;
+            padding: 8px 14px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            line-height: 1.3;
+        }
+        .tab-btn:hover { border-color: var(--primary); color: var(--text); }
+        .tab-btn.active {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.08);
+            color: var(--primary);
+        }
+        .tab-btn .en { display: block; font-size: 0.7rem; }
+        .tab-btn .ar { display: block; font-size: 0.55rem; opacity: 0.7; }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow), var(--glow);
+            padding: 18px 14px;
+            margin-bottom: 16px;
+            transition: background 0.3s ease, border 0.3s ease;
+            display: none;
+        }
+        .card.active { display: block; }
+        .card h2 {
+            font-size: 1.3rem;
+            color: var(--text);
+            border-right: 4px solid var(--primary);
+            padding-right: 12px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        /* ===== SLIDES ===== */
+        .slide-container {
+            position: relative;
+            min-height: 300px;
+        }
+        .slide {
+            display: none;
+            animation: fadeSlide 0.3s ease;
+        }
+        .slide.active { display: block; }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateX(15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .slide-progress .bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            margin: 0 12px;
+            overflow: hidden;
+        }
+        .slide-progress .bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #818cf8);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        .slide-progress .count {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .slide-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .slide-nav .btn-nav {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 80px;
+            text-align: center;
+        }
+        .slide-nav .btn-nav:hover:not(:disabled) {
+            background: rgba(0, 212, 255, 0.08);
+            border-color: var(--primary);
+        }
+        .slide-nav .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+        .slide-nav .btn-nav.primary {
+            background: var(--primary);
+            color: #0a0e1a;
+            border-color: var(--primary);
+        }
+        .slide-nav .btn-nav.primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        [data-theme="light"] .slide-nav .btn-nav {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        /* ===== CARDS GRID ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            margin-bottom: 8px;
+        }
+
+        .topic-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px 14px 12px;
+            transition: border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .topic-card:hover { border-color: var(--primary); }
+
+        .topic-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--card-title-bg);
+        }
+        .topic-card .card-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--primary);
+            line-height: 1.4;
+            flex: 1;
+        }
+        .topic-card .card-title-ar {
+            color: var(--muted);
+            font-weight: 400;
+            display: none;
+        }
+        .topic-card .card-title-ar.show { display: inline; }
+        .topic-card .card-title-en { display: inline; }
+        .topic-card .card-title-en.hidden { display: none; }
+
+        .topic-card .translate-btn {
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 0.6rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-right: 8px;
+        }
+        .topic-card .translate-btn:hover {
+            background: rgba(0, 212, 255, 0.18);
+            border-color: var(--primary);
+        }
+        .topic-card .translate-btn.active {
+            background: rgba(0, 212, 255, 0.18);
+            border-color: var(--primary);
+        }
+
+        .topic-card .card-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+        }
+        .topic-card .card-items li {
+            padding: 4px 0 4px 0;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        [data-theme="light"] .topic-card .card-items li {
+            border-bottom-color: rgba(0, 0, 0, 0.04);
+        }
+        .topic-card .card-items li:last-child { border-bottom: none; }
+
+        .topic-card .item-en {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            display: block;
+            text-align: left;
+            direction: ltr;
+        }
+        .topic-card .item-ar {
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.6;
+            text-align: right;
+            direction: rtl;
+            display: none;
+            margin-top: 2px;
+            padding-right: 8px;
+            border-right: 2px solid rgba(0, 212, 255, 0.2);
+        }
+        .topic-card .item-ar.show { display: block; }
+
+        .topic-card .card-items.numbered {
+            counter-reset: item-counter;
+        }
+        .topic-card .card-items.numbered li {
+            padding-right: 28px;
+            position: relative;
+            counter-increment: item-counter;
+        }
+        .topic-card .card-items.numbered li::before {
+            content: counter(item-counter) "-";
+            position: absolute;
+            right: 2px;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* ===== TABLES ===== */
+        .info-table-wrap {
+            overflow-x: auto;
+            margin: 12px 0;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            grid-column: 1 / -1;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            min-width: 500px;
+        }
+        .info-table th {
+            background: var(--table-header-bg);
+            color: var(--primary);
+            padding: 8px 6px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            font-weight: 700;
+        }
+        .info-table td {
+            padding: 8px 6px;
+            border-bottom: 1px solid var(--card-border);
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        .info-table tr:last-child td { border-bottom: none; }
+        .info-table .ar-text {
+            border-right: none;
+            padding-right: 0;
+            margin-top: 2px;
+            font-size: 0.78rem;
+            display: block;
+            color: var(--muted);
+        }
+        .info-table .en-text { font-size: 0.85rem; }
+
+        @media (max-width: 600px) {
+            .cards-grid { grid-template-columns: 1fr; }
+            .info-table { font-size: 0.72rem; min-width: 350px; }
+            .topic-card .card-title { font-size: 0.85rem; }
+        }
+
+        .footer-credit {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.12);
+            font-size: 0.7rem;
+            margin-top: 24px;
+            padding: 10px 0;
+            border-top: 1px solid var(--footer-border);
+        }
+        [data-theme="light"] .footer-credit { color: rgba(0, 0, 0, 0.2); }
+        .footer-credit .name { color: var(--primary); font-weight: 600; }
+
+        @media (max-width: 768px) {
+            body { padding: 8px 4px; }
+            .header h1 { font-size: 1.4rem; }
+            .tab-btn { padding: 6px 10px; font-size: 0.6rem; }
+            .card { padding: 14px 10px; }
+            .card h2 { font-size: 1.1rem; }
+        }
+
+        .topic-card.full-width { grid-column: 1 / -1; }
+    </style>
+</head>
+<body>
+
+    <div class="app">
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1><span class="highlight">Fundamentals of Nursing</span></h1>
+                    <div class="sub"> أساسيات تمريض نظري</div>
+                    <div class="creator">Created by <span class="name">MR. YASSIN THARWAT</span></div>
+                </div>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="تبديل الوضع">☀</button>
+            </div>
+        </div>
+
+        <div class="tabs-wrap" id="tabsContainer"></div>
+        <div id="sectionsContainer"></div>
+        <div class="footer-credit">
+            Created by <span class="name">MR. YASSIN THARWAT</span>
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        //  THEME
+        // ================================================================
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('themeToggle').textContent = theme === 'light' ? '☾' : '☀';
+            localStorage.setItem('theme', theme);
+            currentTheme = theme;
+        }
+        function toggleTheme() { applyTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+
+        // ================================================================
+        //  SLIDE SYSTEM
+        // ================================================================
+        let slideState = {};
+
+        function initSlideState(partId, totalSlides) {
+            slideState[partId] = { current: 0, total: totalSlides };
+        }
+
+        function renderSlide(partId, containerId) {
+            const state = slideState[partId];
+            if (!state) return;
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const slides = container.querySelectorAll('.slide');
+            slides.forEach((s, i) => s.classList.toggle('active', i === state.current));
+            const progressBar = container.querySelector('.slide-progress .fill');
+            const countSpan = container.querySelector('.slide-progress .count');
+            if (progressBar) progressBar.style.width = ((state.current + 1) / state.total * 100) + '%';
+            if (countSpan) countSpan.textContent = `${state.current + 1} / ${state.total}`;
+            const prevBtn = container.querySelector('.btn-nav.prev');
+            const nextBtn = container.querySelector('.btn-nav.next');
+            if (prevBtn) prevBtn.disabled = state.current === 0;
+            if (nextBtn) nextBtn.disabled = state.current === state.total - 1;
+        }
+
+        function goToSlide(partId, containerId, index) {
+            const state = slideState[partId];
+            if (!state) return;
+            if (index < 0) index = 0;
+            if (index >= state.total) index = state.total - 1;
+            state.current = index;
+            renderSlide(partId, containerId);
+        }
+
+        // ================================================================
+        //  HELPERS
+        // ================================================================
+        function createSlideHTML(title, cardsHTML) {
+            return `
+                <div class="slide">
+                    <h3 style="font-size:1.1rem; color:var(--primary); margin-bottom:12px; border-right:3px solid var(--primary); padding-right:10px;">${title}</h3>
+                    <div class="cards-grid">${cardsHTML}</div>
+                </div>
+            `;
+        }
+
+        function card(title, items, arTitle = '') {
+            const cardId = 'c' + Math.random().toString(36).substr(2, 8);
+            const itemsHTML = items.map((item) => {
+                const en = item.en || item;
+                const ar = item.ar || '';
+                return `<li><span class="item-en">${en}</span><span class="item-ar">${ar}</span></li>`;
+            }).join('');
+            const listClass = items.some(i => i.en && i.en.match(/^\d/)) ? 'card-items numbered' : 'card-items simple';
+            return `
+                <div class="topic-card" data-card="${cardId}">
+                    <div class="card-header">
+                        <span class="card-title">
+                            <span class="card-title-en">${title}</span>
+                            <span class="card-title-ar" id="${cardId}-title-ar">${arTitle}</span>
+                        </span>
+                        <button class="translate-btn" data-card="${cardId}" onclick="toggleCardTranslation('${cardId}')">ترجمة</button>
+                    </div>
+                    <ul class="${listClass}">${itemsHTML}</ul>
+                </div>
+            `;
+        }
+
+        function tableCard(title, tableHTML, arTitle = '') {
+            return `
+                <div class="topic-card full-width">
+                    <div class="card-header">
+                        <span class="card-title">
+                            <span class="card-title-en">${title}</span>
+                            <span class="card-title-ar" style="display:block;">${arTitle}</span>
+                        </span>
+                    </div>
+                    <div class="info-table-wrap">${tableHTML}</div>
+                </div>
+            `;
+        }
+
+        function cell(en, ar) {
+            return `<span class="en-text">${en}</span><span class="ar-text">${ar}</span>`;
+        }
+
+        function toggleCardTranslation(cardId) {
+            const card = document.querySelector(`.topic-card[data-card="${cardId}"]`);
+            if (!card) return;
+            const arItems = card.querySelectorAll('.item-ar');
+            const titleAr = document.getElementById(`${cardId}-title-ar`);
+            const titleEn = card.querySelector('.card-title-en');
+            const btn = card.querySelector('.translate-btn');
+            const isVisible = arItems.length > 0 && arItems[0].classList.contains('show');
+            arItems.forEach(el => el.classList.toggle('show'));
+            if (titleAr) {
+                titleAr.classList.toggle('show');
+                if (titleEn) titleEn.classList.toggle('hidden');
+            }
+            if (btn) {
+                btn.textContent = isVisible ? 'ترجمة' : 'إخفاء';
+                btn.classList.toggle('active');
+            }
+        }
+
+        // ================================================================
+        //  DATA: FLUID & ELECTROLYTES LECTURE
+        // ================================================================
+        const fluidData = {
+            titleEn: 'Lecture 1',
+            titleAr: 'المحاضرة الأولى',
+            slides: [
+                {
+                    title: 'Objectives · أهداف المحاضرة',
+                    cards: [
+                        card('At the end of this lecture, the student will be able to:', [
+                            { en: '1. Identify normal body fluids and its function.', ar: '1. تحديد سوائل الجسم الطبيعية ووظائفها.' },
+                            { en: '2. Identify normal electrolytes and its function.', ar: '2. تحديد الإلكتروليتات الطبيعية ووظائفها.' },
+                            { en: '3. Describe normal distribution of body fluids.', ar: '3. وصف التوزيع الطبيعي لسوائل الجسم.' },
+                            { en: '4. Describe the electrolytes in the body and their normal values.', ar: '4. وصف الإلكتروليتات في الجسم وقيمها الطبيعية.' },
+                            { en: '5. Explain organs that maintain fluid and electrolytes balance.', ar: '5. شرح الأعضاء التي تحافظ على توازن السوائل والإلكتروليتات.' }
+                        ], 'في نهاية هذه المحاضرة، سيكون الطالب قادراً على:')
+                    ]
+                },
+                {
+                    title: 'Fluid Balance · توازن السوائل',
+                    cards: [
+                        card('Amount and composition of body fluids · كمية وتكوين سوائل الجسم', [
+                            { en: 'Approximately <span class="highlight-text">60%</span> of a typical adult\'s weight consists of fluid (water and electrolytes).', ar: 'حوالي <span class="highlight-text">60%</span> من وزن الشخص البالغ النموذجي يتكون من السوائل (ماء وإلكتروليتات).' },
+                            { en: 'Total body water = 60% in a 220 lbs adult.', ar: 'إجمالي ماء الجسم = 60% في شخص بالغ وزنه 220 رطلاً.' },
+                            { en: 'In obese individuals, total body water = 30% (fat contains little water).', ar: 'في الأفراد البدناء، إجمالي ماء الجسم = 30% (الدهون تحتوي على القليل من الماء).' }
+                        ], 'كمية وتكوين سوائل الجسم:'),
+                        card('Functions of body fluid (Maintain Homeostasis) · وظائف سوائل الجسم', [
+                            { en: '1. <span class="highlight-text">Transports nutrients</span> to the cells and carries waste products from the cells.', ar: '1. <span class="highlight-text">نقل العناصر الغذائية</span> إلى الخلايا وحمل الفضلات من الخلايا.' },
+                            { en: '2. Provides a <span class="highlight-text">medium</span> in which chemical reactions can occur.', ar: '2. توفير <span class="highlight-text">وسط</span> يمكن أن تحدث فيه التفاعلات الكيميائية.' },
+                            { en: '3. Maintain <span class="highlight-text">acid-base balance</span> (balance between +cations Na+, K+ and - anions Cl- etc.).', ar: '3. الحفاظ على <span class="highlight-text">توازن الحمض والقاعدة</span> (التوازن بين الكاتيونات +Na+, K+ والأنيونات -Cl إلخ).' },
+                            { en: '4. Assist in <span class="highlight-text">heat regulation</span> by evaporation.', ar: '4. المساعدة في <span class="highlight-text">تنظيم الحرارة</span> عن طريق التبخر.' },
+                            { en: '5. <span class="highlight-text">Lubricates joints</span> and mucous membranes.', ar: '5. <span class="highlight-text">تزييت المفاصل</span> والأغشية المخاطية.' }
+                        ], 'وظائف سوائل الجسم (الحفاظ على الاستقرار الداخلي):')
+                    ]
+                },
+                {
+                    title: 'Distribution of Body Fluids · توزيع سوائل الجسم',
+                    cards: [
+                        card('Intracellular Fluid (ICF) · السائل داخل الخلايا', [
+                            { en: 'The <span class="highlight-text">largest amount</span> of body fluid.', ar: '<span class="highlight-text">أكبر كمية</span> من سوائل الجسم.' },
+                            { en: 'Located within cells.', ar: 'يقع داخل الخلايا.' },
+                            { en: 'Constitutes about <span class="highlight-text">two thirds (40% of body weight)</span> or 70% of the total body water.', ar: 'يشكل حوالي <span class="highlight-text">الثلثين (40% من وزن الجسم)</span> أو 70% من إجمالي ماء الجسم.' }
+                        ], 'السائل داخل الخلايا (ICF):'),
+                        card('Extracellular Fluid (ECF) · السائل خارج الخلايا', [
+                            { en: 'Fluid found <span class="highlight-text">outside the cell</span> but between the cell and the blood vessel.', ar: 'السائل الموجود <span class="highlight-text">خارج الخلية</span> ولكن بين الخلية والأوعية الدموية.' },
+                            { en: 'Lost from body <span class="highlight-text">more rapidly</span>.', ar: 'يُفقد من الجسم <span class="highlight-text">بسرعة أكبر</span>.' },
+                            { en: 'One third <span class="highlight-text">(20% of body weight)</span> or 30% of the total body water.', ar: 'الثلث <span class="highlight-text">(20% من وزن الجسم)</span> أو 30% من إجمالي ماء الجسم.' }
+                        ], 'السائل خارج الخلايا (ECF):'),
+                        card('Functions of ECF · وظائف السائل خارج الخلايا', [
+                            { en: '1. Transports nutrients and electrolytes to cells and waste products for excretion.', ar: '1. نقل العناصر الغذائية والإلكتروليتات إلى الخلايا والفضلات للإخراج.' },
+                            { en: '2. Regulates heat.', ar: '2. تنظيم الحرارة.' },
+                            { en: '3. Lubricates and cushions joints.', ar: '3. تزييت وتوسيد المفاصل.' },
+                            { en: '4. Hydrolyzes food for digestive process.', ar: '4. تحليل الطعام لعملية الهضم.' }
+                        ], 'وظائف السائل خارج الخلايا:'),
+                        card('Two Types of ECF · نوعا السائل خارج الخلايا', [
+                            { en: '<span class="highlight-text">A. Intravascular:</span> ECF within blood vessels (e.g., plasma) — <span class="highlight-text">7%</span> or approx. 3 liters.', ar: '<span class="highlight-text">أ. داخل الأوعية:</span> السائل خارج الخلايا داخل الأوعية الدموية (مثل البلازما) — <span class="highlight-text">7%</span> أو حوالي 3 لترات.' },
+                            { en: '<span class="highlight-text">B. Interstitial fluid:</span> fluid between the cell and blood vessel, surrounds the blood vessels (e.g., lymph, CSF, GI secretions, urine, sweat, exudate) — <span class="highlight-text">27%</span> or approx. 8 liters.', ar: '<span class="highlight-text">ب. السائل الخلالي:</span> السائل بين الخلية والأوعية الدموية، يحيط بالأوعية الدموية (مثل اللمف، السائل النخاعي، إفرازات الجهاز الهضمي، البول، العرق، الإفرازات) — <span class="highlight-text">27%</span> أو حوالي 8 لترات.' }
+                        ], 'نوعا السائل خارج الخلايا:')
+                    ]
+                },
+                {
+                    title: 'Regulating Body Fluids · تنظيم سوائل الجسم',
+                    cards: [
+                        card('Fluid Intake · المدخلات السائلة', [
+                            { en: 'Average adult drinks about <span class="highlight-text">1,500 mL/day</span> but needs <span class="highlight-text">2,500 mL/day</span> — an additional 1,000 mL.', ar: 'البالغ العادي يشرب حوالي <span class="highlight-text">1,500 مل/يوم</span> لكنه يحتاج <span class="highlight-text">2,500 مل/يوم</span> — إضافة 1,000 مل.' }
+                        ], 'المدخلات السائلة:'),
+                        tableCard('Average Daily Fluid Intake for an Adult · متوسط المدخول اليومي للسوائل للبالغ', `
+                            <table class="info-table">
+                                <thead><tr><th>Source · المصدر</th><th>Amount · الكمية</th></tr></thead>
+                                <tbody>
+                                    <tr><td>${cell('Oral fluids', 'السوائل الفموية')}</td><td>${cell('1,200 – 1,500 mL', '1,200 – 1,500 مل')}</td></tr>
+                                    <tr><td>${cell('Water in foods', 'الماء في الطعام')}</td><td>${cell('1,000 mL', '1,000 مل')}</td></tr>
+                                    <tr><td>${cell('Water as by-product of food metabolism', 'الماء الناتج عن استقلاب الطعام')}</td><td>${cell('200 mL', '200 مل')}</td></tr>
+                                    <tr><td><strong>${cell('Total', 'المجموع')}</strong></td><td><strong>${cell('2,400 – 2,700 mL', '2,400 – 2,700 مل')}</strong></td></tr>
+                                </tbody>
+                            </table>
+                        `, 'متوسط المدخول اليومي للسوائل للبالغ:'),
+                        card('Fluid Output (4 routes) · المخرجات السائلة (4 طرق)', [
+                            { en: '1. <span class="highlight-text">Urine</span>', ar: '1. <span class="highlight-text">البول</span>' },
+                            { en: '2. <span class="highlight-text">Insensible loss</span> through skin as perspiration and through lungs as water vapor.', ar: '2. <span class="highlight-text">الفقد غير المحسوس</span> عبر الجلد كعرق وعبر الرئتين كبخار ماء.' },
+                            { en: '3. <span class="highlight-text">Noticeable loss</span> through the skin (sweat).', ar: '3. <span class="highlight-text">الفقد الملحوظ</span> عبر الجلد (العرق).' },
+                            { en: '4. Loss through the <span class="highlight-text">intestines in feces</span>.', ar: '4. الفقد عبر <span class="highlight-text">الأمعاء في البراز</span>.' }
+                        ], 'المخرجات السائلة (4 طرق):'),
+                        tableCard('Average Daily Fluid Output for an Adult · متوسط الإخراج اليومي للسوائل للبالغ', `
+                            <table class="info-table">
+                                <thead><tr><th>Source · المصدر</th><th>Amount · الكمية</th></tr></thead>
+                                <tbody>
+                                    <tr><td>${cell('Urine', 'البول')}</td><td>${cell('1,400 – 1,500 mL', '1,400 – 1,500 مل')}</td></tr>
+                                    <tr><td>${cell('Insensible losses — Lung', 'الفقد غير المحسوس — الرئة')}</td><td>${cell('350 – 400 mL', '350 – 400 مل')}</td></tr>
+                                    <tr><td>${cell('Insensible losses — Skin', 'الفقد غير المحسوس — الجلد')}</td><td>${cell('350 – 400 mL', '350 – 400 مل')}</td></tr>
+                                    <tr><td>${cell('Sweat', 'العرق')}</td><td>${cell('100 mL', '100 مل')}</td></tr>
+                                    <tr><td>${cell('Feces', 'البراز')}</td><td>${cell('100 – 200 mL', '100 – 200 مل')}</td></tr>
+                                    <tr><td><strong>${cell('Total', 'المجموع')}</strong></td><td><strong>${cell('2,300 – 2,600 mL', '2,300 – 2,600 مل')}</strong></td></tr>
+                                </tbody>
+                            </table>
+                        `, 'متوسط الإخراج اليومي للسوائل للبالغ:')
+                    ]
+                },
+                {
+                    title: 'Maintaining Homeostasis · الحفاظ على الاستقرار الداخلي',
+                    cards: [
+                        card('Homeostatic Mechanisms · الآليات التنظيمية', [
+                            { en: 'The volume and composition of body fluids is regulated through several <span class="highlight-text">homeostatic mechanisms</span>.', ar: 'يتم تنظيم حجم وتكوين سوائل الجسم عبر عدة <span class="highlight-text">آليات استقرار داخلي</span>.' },
+                            { en: 'Body systems contributing: <span class="highlight-text">Kidneys, endocrine system, cardiovascular system, lungs, and gastrointestinal system</span>.', ar: 'أنظمة الجسم المساهمة: <span class="highlight-text">الكلى، الجهاز الغدي، الجهاز القلبي الوعائي، الرئتان، والجهاز الهضمي</span>.' },
+                            { en: 'Hormones involved: <span class="highlight-text">ADH (arginine vasopressin/AVP), renin-angiotensin-aldosterone system, and atrial natriuretic factor (ANP)</span>.', ar: 'الهرمونات المشاركة: <span class="highlight-text">ADH (الأرجينين فازوبريسين/AVP)، نظام الرينين-أنجيوتنسين-ألدوستيرون، وعامل الصوديوم الأذيني (ANP)</span>.' }
+                        ], 'الآليات التنظيمية:'),
+                        card('Kidney Regulation · تنظيم الكلى', [
+                            { en: '1. Regulates primarily fluid output by <span class="highlight-text">urine formation</span>.', ar: '1. ينظم بشكل أساسي إخراج السوائل عن طريق <span class="highlight-text">تكوين البول</span>.' },
+                            { en: '2. Releases <span class="highlight-text">renin</span>.', ar: '2. يفرز <span class="highlight-text">الرينين</span>.' },
+                            { en: '3. Regulates <span class="highlight-text">sodium and water balance</span>.', ar: '3. ينظم <span class="highlight-text">توازن الصوديوم والماء</span>.' }
+                        ], 'تنظيم الكلى:'),
+                        card('RAAS Pathway · مسار الرينين-أنجيوتنسين', [
+                            { en: 'Liver → Angiotensinogen → <span class="highlight-text">Renin</span> (from kidney) → Angiotensin I → <span class="highlight-text">ACE</span> (from lungs) → Angiotensin II.', ar: 'الكبد → أنجيوتنسينوجين → <span class="highlight-text">رينين</span> (من الكلى) → أنجيوتنسين I → <span class="highlight-text">ACE</span> (من الرئتين) → أنجيوتنسين II.' },
+                            { en: 'Angiotensin II causes: <span class="highlight-text">ADH release (thirst & drinking), vasoconstriction, aldosterone release (Na and water retention)</span>.', ar: 'أنجيوتنسين II يسبب: <span class="highlight-text">إفراز ADH (العطش والشرب)، تضيق الأوعية، إفراز الألدوستيرون (احتباس الصوديوم والماء)</span>.' }
+                        ], 'مسار الرينين-أنجيوتنسين:'),
+                        card('ADH Mechanism · آلية ADH', [
+                            { en: '<span class="highlight-text">Body dehydrated</span> → more water absorbed → <span class="highlight-text">increased ADH</span> → concentrated urine.', ar: '<span class="highlight-text">الجسم يعاني من الجفاف</span> → امتصاص ماء أكثر → <span class="highlight-text">زيادة ADH</span> → بول مركّز.' },
+                            { en: '<span class="highlight-text">Body hydrated</span> → less water absorbed → <span class="highlight-text">less ADH</span> → diluted urine.', ar: '<span class="highlight-text">الجسم رطب</span> → امتصاص ماء أقل → <span class="highlight-text">أقل ADH</span> → بول مخفف.' },
+                            { en: 'ADH is produced by <span class="highlight-text">hypothalamus</span> and stored in <span class="highlight-text">posterior pituitary</span>.', ar: 'يُنتج ADH في <span class="highlight-text">الوطاء</span> ويُخزن في <span class="highlight-text">الغدة النخامية الخلفية</span>.' }
+                        ], 'آلية ADH:'),
+                        card('Hormonal Regulation · التنظيم الهرموني', [
+                            { en: '1. Regulates primarily fluid intake by <span class="highlight-text">thirst mechanism</span>.', ar: '1. ينظم بشكل أساسي تناول السوائل عن طريق <span class="highlight-text">آلية العطش</span>.' },
+                            { en: '2. <span class="highlight-text">ADH</span> increases water reabsorption in collecting duct.', ar: '2. <span class="highlight-text">ADH</span> يزيد إعادة امتصاص الماء في القناة الجامعة.' },
+                            { en: '3. <span class="highlight-text">Aldosterone</span>: increases Sodium retention in the distal nephron.', ar: '3. <span class="highlight-text">الألدوستيرون</span>: يزيد احتباس الصوديوم في الكلية البعيدة.' },
+                            { en: '4. <span class="highlight-text">ANP</span>: promotes Sodium excretion and inhibits thirst mechanism.', ar: '4. <span class="highlight-text">ANP</span>: يعزز إخراج الصوديوم ويثبط آلية العطش.' },
+                            { en: '5. Hormones: a. Renin-Angiotensin-Aldosterone. b. Anti-Diuretic Hormone. c. Parathormone (for Calcium and Phosphorus balance).', ar: '5. الهرمونات: أ. رينين-أنجيوتنسين-ألدوستيرون. ب. الهرمون المضاد لإدرار البول. ج. هرمون جار الدرقية (لتوزان الكالسيوم والفسفور).' }
+                        ], 'التنظيم الهرموني:'),
+                        card('Gastrointestinal Regulation · تنظيم الجهاز الهضمي', [
+                            { en: '1. The GIT digests food and <span class="highlight-text">absorbs water</span>.', ar: '1. الجهاز الهضمي يهضم الطعام و<span class="highlight-text">يمتص الماء</span>.' },
+                            { en: '2. Only about <span class="highlight-text">200 mL</span> of water is excreted in the fecal material/day.', ar: '2. فقط حوالي <span class="highlight-text">200 مل</span> من الماء يُطرح في البراز يومياً.' }
+                        ], 'تنظيم الجهاز الهضمي:')
+                    ]
+                },
+                {
+                    title: 'Electrolytes in Human Body · الإلكتروليتات في جسم الإنسان',
+                    cards: [
+                        card('Definition · التعريف', [
+                            { en: 'Electrolytes are <span class="highlight-text">charged ions</span> capable of conducting electricity and are solutes in all compartments.', ar: 'الإلكتروليتات هي <span class="highlight-text">أيونات مشحونة</span> قادرة على توصيل الكهرباء وهي مواد مذابة في جميع الأحياز.' }
+                        ], 'التعريف:'),
+                        card('Anions (negatively charged) · الأنيونات (سالبة الشحنة)', [
+                            { en: 'Bicarbonate (<span class="highlight-text">HCO3-</span>)', ar: 'البيكربونات (<span class="highlight-text">HCO3-</span>)' },
+                            { en: 'Chloride (<span class="highlight-text">Cl-</span>)', ar: 'الكلوريد (<span class="highlight-text">Cl-</span>)' },
+                            { en: 'Phosphate (<span class="highlight-text">PO4</span>)', ar: 'الفوسفات (<span class="highlight-text">PO4</span>)' },
+                            { en: 'Sulfate (<span class="highlight-text">SO4</span>)', ar: 'الكبريتات (<span class="highlight-text">SO4</span>)' }
+                        ], 'الأنيونات (سالبة الشحنة):'),
+                        card('Cations (positively charged) · الكاتيونات (موجبة الشحنة)', [
+                            { en: 'Sodium (<span class="highlight-text">Na+</span>)', ar: 'الصوديوم (<span class="highlight-text">Na+</span>)' },
+                            { en: 'Potassium (<span class="highlight-text">K+</span>)', ar: 'البوتاسيوم (<span class="highlight-text">K+</span>)' },
+                            { en: 'Magnesium (<span class="highlight-text">Mg++</span>)', ar: 'المغنيسيوم (<span class="highlight-text">Mg++</span>)' },
+                            { en: 'Calcium (<span class="highlight-text">Ca++</span>)', ar: 'الكالسيوم (<span class="highlight-text">Ca++</span>)' }
+                        ], 'الكاتيونات (موجبة الشحنة):'),
+                        card('Helpful Mnemonics (PI-SO) · اختصار مفيد', [
+                            { en: '<span class="highlight-text">P</span>otassium is <span class="highlight-text">I</span>nside.', ar: '<span class="highlight-text">P</span>otassium (البوتاسيوم) <span class="highlight-text">I</span>nside (بالداخل).' },
+                            { en: '<span class="highlight-text">P</span>hosphate is <span class="highlight-text">I</span>nside.', ar: '<span class="highlight-text">P</span>hosphate (الفوسفات) <span class="highlight-text">I</span>nside (بالداخل).' },
+                            { en: '<span class="highlight-text">S</span>odium is <span class="highlight-text">O</span>utside.', ar: '<span class="highlight-text">S</span>odium (الصوديوم) <span class="highlight-text">O</span>utside (بالخارج).' },
+                            { en: '<span class="highlight-text">C</span>hloride is <span class="highlight-text">O</span>utside.', ar: '<span class="highlight-text">C</span>hloride (الكلوريد) <span class="highlight-text">O</span>utside (بالخارج).' }
+                        ], 'اختصار مفيد (PI-SO):'),
+                        card('Functions of Electrolytes · وظائف الإلكتروليتات', [
+                            { en: '1. Regulation of <span class="highlight-text">water distribution</span>.', ar: '1. تنظيم <span class="highlight-text">توزيع الماء</span>.' },
+                            { en: '2. Transmission of <span class="highlight-text">nerve impulse</span>.', ar: '2. نقل <span class="highlight-text">النبضات العصبية</span>.' },
+                            { en: '3. <span class="highlight-text">Clotting of blood</span>.', ar: '3. <span class="highlight-text">تجلط الدم</span>.' },
+                            { en: '4. Generation of <span class="highlight-text">adenosine triphosphate (ATP)</span>.', ar: '4. توليد <span class="highlight-text">أدينوزين ثلاثي الفوسفات (ATP)</span>.' },
+                            { en: '5. Regulation of <span class="highlight-text">acid-base balance</span>.', ar: '5. تنظيم <span class="highlight-text">توازن الحمض والقاعدة</span>.' }
+                        ], 'وظائف الإلكتروليتات:')
+                    ]
+                },
+                {
+                    title: 'Regulation of Electrolyte Balance · تنظيم توازن الإلكتروليتات',
+                    cards: [
+                        card('1. Renal Regulation · التنظيم الكلوي', [
+                            { en: 'Occurs by the process of <span class="highlight-text">glomerular filtration, tubular reabsorption, and tubular secretion</span> (urine formation).', ar: 'يحدث عبر عملية <span class="highlight-text">الترشيح الكبيبي، إعادة الامتصاص الأنبوبي، والإفراز الأنبوبي</span> (تكوين البول).' },
+                            { en: 'If there is little water in the body, it is <span class="highlight-text">conserved</span>. If there is water excess, it will be <span class="highlight-text">eliminated</span>.', ar: 'إذا كان هناك القليل من الماء في الجسم، فإنه <span class="highlight-text">يُحافظ عليه</span>. إذا كان هناك فائض في الماء، فإنه <span class="highlight-text">يُطرح</span>.' }
+                        ], '1. التنظيم الكلوي:'),
+                        card('2. Endocrinal Regulation · التنظيم الغدي', [
+                            { en: '<span class="highlight-text">a. Aldosterone</span> → promotes Sodium retention and Potassium excretion.', ar: '<span class="highlight-text">أ. الألدوستيرون</span> → يعزز احتباس الصوديوم وإخراج البوتاسيوم.' },
+                            { en: '<span class="highlight-text">b. Parathormone (PTH)</span> → promotes Calcium retention and Phosphate excretion.', ar: '<span class="highlight-text">ب. هرمون جار الدرقية (PTH)</span> → يعزز احتباس الكالسيوم وإخراج الفوسفات.' },
+                            { en: '<span class="highlight-text">c. Calcitonin</span> → promotes Calcium excretion and Phosphate excretion.', ar: '<span class="highlight-text">ج. الكالسيتونين</span> → يعزز إخراج الكالسيوم وإخراج الفوسفات.' }
+                        ], '2. التنظيم الغدي:')
+                    ]
+                },
+                {
+                    title: 'Sodium & Potassium · الصوديوم والبوتاسيوم',
+                    cards: [
+                        card('1. Sodium (Na+) · الصوديوم', [
+                            { en: 'Most <span class="highlight-text">cation in the ECF</span>.', ar: 'أكثر <span class="highlight-text">كاتيون في السائل خارج الخلايا</span>.' },
+                            { en: 'Normal range: <span class="highlight-text">135 – 145 mEq/L</span>.', ar: 'المعدل الطبيعي: <span class="highlight-text">135 – 145 ملي مكافئ/لتر</span>.' }
+                        ], '1. الصوديوم (Na+):'),
+                        card('Functions of Sodium · وظائف الصوديوم', [
+                            { en: '1. Participates in the <span class="highlight-text">Na-K pump</span>.', ar: '1. يشارك في <span class="highlight-text">مضخة الصوديوم-البوتاسيوم</span>.' },
+                            { en: '2. Assists in maintaining <span class="highlight-text">blood volume</span>.', ar: '2. يساعد في الحفاظ على <span class="highlight-text">حجم الدم</span>.' },
+                            { en: '3. Assists in <span class="highlight-text">nerve transmission and muscle contraction</span>. Aldosterone → increases sodium retention. ANP → increases sodium excretion.', ar: '3. يساعد في <span class="highlight-text">نقل النبضات العصبية وانقباض العضلات</span>. الألدوستيرون → يزيد احتباس الصوديوم. ANP → يزيد إخراج الصوديوم.' },
+                            { en: '4. Maintain <span class="highlight-text">acid-base balance</span>.', ar: '4. الحفاظ على <span class="highlight-text">توازن الحمض والقاعدة</span>.' }
+                        ], 'وظائف الصوديوم:'),
+                        card('2. Potassium (K+) · البوتاسيوم', [
+                            { en: 'Major <span class="highlight-text">ICF cation</span>.', ar: 'الكاتيون الرئيسي في <span class="highlight-text">السائل داخل الخلايا</span>.' },
+                            { en: 'Normal range: <span class="highlight-text">3.5 – 5 mEq/L</span>.', ar: 'المعدل الطبيعي: <span class="highlight-text">3.5 – 5 ملي مكافئ/لتر</span>.' }
+                        ], '2. البوتاسيوم (K+):'),
+                        card('Functions & Sources of Potassium · وظائف ومصادر البوتاسيوم', [
+                            { en: '1. <span class="highlight-text">Transmission and conduction</span> of nerve and muscle impulses.', ar: '1. <span class="highlight-text">نقل وتوصيل</span> النبضات العصبية والعضلية.' },
+                            { en: '2. Maintenance of <span class="highlight-text">cardiac rhythms</span>.', ar: '2. الحفاظ على <span class="highlight-text">نظم القلب</span>.' },
+                            { en: '3. <span class="highlight-text">Acid-base balance</span>.', ar: '3. <span class="highlight-text">توازن الحمض والقاعدة</span>.' },
+                            { en: '<span class="highlight-text">Sources:</span> a. Fruits and vegetables (bananas and oranges). b. Salt substitutes. c. Potassium medications.', ar: '<span class="highlight-text">المصادر:</span> أ. الفواكه والخضروات (الموز والبرتقال). ب. بدائل الملح. ج. أدوية البوتاسيوم.' }
+                        ], 'وظائف ومصادر البوتاسيوم:')
+                    ]
+                },
+                {
+                    title: 'Calcium & Phosphorus · الكالسيوم والفسفور',
+                    cards: [
+                        card('3. Calcium (Ca) · الكالسيوم', [
+                            { en: 'Majority of calcium is in the <span class="highlight-text">bones and teeth</span>.', ar: 'معظم الكالسيوم في <span class="highlight-text">العظام والأسنان</span>.' },
+                            { en: 'Normal serum range: <span class="highlight-text">8.5 – 10.5 mg/dL</span>.', ar: 'المعدل الطبيعي في المصل: <span class="highlight-text">8.5 – 10.5 ملغ/دل</span>.' },
+                            { en: 'More than <span class="highlight-text">99%</span> combined with phosphorus and concentrated in skeletal system.', ar: 'أكثر من <span class="highlight-text">99%</span> مرتبط بالفسفور ومركز في الجهاز الهيكلي.' },
+                            { en: '<span class="highlight-text">Inverse relationship</span> with phosphorus.', ar: '<span class="highlight-text">علاقة عكسية</span> مع الفسفور.' }
+                        ], '3. الكالسيوم (Ca):'),
+                        card('Functions of Calcium · وظائف الكالسيوم', [
+                            { en: '1. <span class="highlight-text">Formation and mineralization</span> of bones/teeth.', ar: '1. <span class="highlight-text">تكوين وتمعدن</span> العظام/الأسنان.' },
+                            { en: '2. <span class="highlight-text">Muscular contraction and relaxation</span>.', ar: '2. <span class="highlight-text">انقباض واسترخاء العضلات</span>.' },
+                            { en: '3. <span class="highlight-text">Cardiac function</span>.', ar: '3. <span class="highlight-text">وظيفة القلب</span>.' },
+                            { en: '4. <span class="highlight-text">Blood clotting</span>.', ar: '4. <span class="highlight-text">تجلط الدم</span>.' },
+                            { en: '5. <span class="highlight-text">Enzyme activation</span>.', ar: '5. <span class="highlight-text">تنشيط الإنزيمات</span>.' },
+                            { en: '6. <span class="highlight-text">Transmission of nerve impulses</span>.', ar: '6. <span class="highlight-text">نقل النبضات العصبية</span>.' }
+                        ], 'وظائف الكالسيوم:'),
+                        card('4. Phosphorus (PO4) · الفسفور', [
+                            { en: 'Normal range: <span class="highlight-text">2.5 – 4.5 mg/dL</span>.', ar: 'المعدل الطبيعي: <span class="highlight-text">2.5 – 4.5 ملغ/دل</span>.' },
+                            { en: 'The <span class="highlight-text">MAJOR Anion in the ICF</span>.', ar: '<span class="highlight-text">الأنيون الرئيسي في السائل داخل الخلايا</span>.' }
+                        ], '4. الفسفور (PO4):'),
+                        card('Functions of Phosphorus · وظائف الفسفور', [
+                            { en: '1. Essential to <span class="highlight-text">muscle, red blood cells, and nervous system</span> function.', ar: '1. ضروري لوظيفة <span class="highlight-text">العضلات، خلايا الدم الحمراء، والجهاز العصبي</span>.' },
+                            { en: '2. Contributes to support and maintenance of <span class="highlight-text">bones and teeth</span>, acts as a buffer to regulate acid-base balance.', ar: '2. يساهم في دعم وصيانة <span class="highlight-text">العظام والأسنان</span>، يعمل كمنظم لتوازن الحمض والقاعدة.' },
+                            { en: '3. Promotes effectiveness of many <span class="highlight-text">B vitamins</span>.', ar: '3. يعزز فعالية العديد من <span class="highlight-text">فيتامينات B</span>.' },
+                            { en: '4. Assists in normal nerve and muscle activity, participates in <span class="highlight-text">carbohydrate, protein and fat metabolism</span>.', ar: '4. يساعد في النشاط العصبي والعضلي الطبيعي، يشارك في <span class="highlight-text">استقلاب الكربوهيدرات والبروتين والدهون</span>.' },
+                            { en: '5. Phosphorus and calcium have an <span class="highlight-text">inverse relationship</span>.', ar: '5. الفسفور والكالسيوم لهما <span class="highlight-text">علاقة عكسية</span>.' },
+                            { en: '6. <span class="highlight-text">PTH</span> → decreases PO4 in blood by renal excretion.', ar: '6. <span class="highlight-text">PTH</span> → يقلل PO4 في الدم عن طريق الإخراج الكلوي.' },
+                            { en: '7. <span class="highlight-text">Calcitonin</span> → increases renal excretion of PO4.', ar: '7. <span class="highlight-text">الكالسيتونين</span> → يزيد الإخراج الكلوي للـ PO4.' },
+                            { en: '8. Foods high in phosphorus: beef, pork, fish, poultry, milk products, dried beans, dried peas, legumes.', ar: '8. الأطعمة الغنية بالفسفور: لحم البقر، لحم الخنزير، السمك، الدواجن، منتجات الحليب، الفاصوليا المجففة، البازلاء المجففة، البقوليات.' },
+                            { en: '9. The <span class="highlight-text">kidneys</span> are responsible for approximately 90% of phosphorus excretion.', ar: '9. <span class="highlight-text">الكلى</span> مسؤولة عن حوالي 90% من إخراج الفسفور.' }
+                        ], 'وظائف الفسفور:')
+                    ]
+                },
+                {
+                    title: 'Magnesium · المغنيسيوم',
+                    cards: [
+                        card('5. Magnesium (Mg) · المغنيسيوم', [
+                            { en: 'Second to <span class="highlight-text">K+ in the ICF</span>.', ar: 'الثاني بعد <span class="highlight-text">K+ في السائل داخل الخلايا</span>.' },
+                            { en: 'Normal range: <span class="highlight-text">1.3 – 2.1 mEq/L</span>.', ar: 'المعدل الطبيعي: <span class="highlight-text">1.3 – 2.1 ملي مكافئ/لتر</span>.' }
+                        ], '5. المغنيسيوم (Mg):'),
+                        card('Functions of Magnesium · وظائف المغنيسيوم', [
+                            { en: '1. Intracellular production and utilization of <span class="highlight-text">ATP</span>.', ar: '1. الإنتاج والاستخدام داخل الخلايا لـ<span class="highlight-text">ATP</span>.' },
+                            { en: '2. <span class="highlight-text">Protein and DNA synthesis</span>.', ar: '2. <span class="highlight-text">تخليق البروتين والحمض النووي</span>.' },
+                            { en: '3. <span class="highlight-text">Neuromuscular irritability</span>.', ar: '3. <span class="highlight-text">استثارة الجهاز العصبي العضلي</span>.' },
+                            { en: '4. <span class="highlight-text">50% – 60%</span> contained in bone.', ar: '4. <span class="highlight-text">50% – 60%</span> موجود في العظام.' },
+                            { en: '5. <span class="highlight-text">Coenzyme</span> in metabolism of protein and carbohydrates.', ar: '5. <span class="highlight-text">مرافق إنزيمي</span> في استقلاب البروتين والكربوهيدرات.' },
+                            { en: '6. Important for normal <span class="highlight-text">cardiac function</span>.', ar: '6. مهم لوظيفة <span class="highlight-text">القلب</span> الطبيعية.' },
+                            { en: '7. <span class="highlight-text">Dietary sources:</span> whole grain, fruits, vegetables, fish, legumes, dairy products.', ar: '7. <span class="highlight-text">المصادر الغذائية:</span> الحبوب الكاملة، الفواكه، الخضروات، السمك، البقوليات، منتجات الألبان.' }
+                        ], 'وظائف المغنيسيوم:')
+                    ]
+                },
+                {
+                    title: 'Fluid Imbalances · اختلالات السوائل',
+                    cards: [
+                        card('Introduction · مقدمة', [
+                            { en: 'Fluid and electrolyte imbalances commonly occur in illness. Every nurse must understand the process of fluid and electrolyte balance, identify patient at risk for imbalances, recognize early signs and symptoms, intervene as appropriate, and evaluate the outcomes.', ar: 'تحدث اختلالات السوائل والإلكتروليتات بشكل شائع في المرض. يجب على كل ممرضة فهم عملية توازن السوائل والإلكتروليتات، تحديد المريض المعرض لخطر الاختلالات، التعرف على العلامات والأعراض المبكرة، التدخل كما هو مناسب، وتقييم النتائج.' }
+                        ], 'مقدمة:'),
+                        card('A. Fluid Volume Deficit (FVD) / Dehydration · نقص حجم السوائل (الجفاف)', [
+                            { en: 'Decreased quantities of fluid and electrolytes may be caused by <span class="highlight-text">deficient intake</span> (poor dietary habits, anorexia, nausea), <span class="highlight-text">excessive output</span> (vomiting, nasogastric suction, prolonged diarrhea), or <span class="highlight-text">failure of regulatory mechanism</span> that influences fluid balance and sodium levels.', ar: 'كميات منخفضة من السوائل والإلكتروليتات قد تكون بسبب <span class="highlight-text">نقص المدخول</span> (عادات غذائية سيئة، فقدان الشهية، غثيان)، <span class="highlight-text">إخراج مفرط</span> (قيء، شفط أنفي معدي، إسهال مطول)، أو <span class="highlight-text">فشل الآلية التنظيمية</span> التي تؤثر على توازن السوائل ومستويات الصوديوم.' }
+                        ], 'أ. نقص حجم السوائل (الجفاف):'),
+                        card('Risk Factors of FVD · عوامل خطر نقص حجم السوائل', [
+                            { en: '1. No fluids available.', ar: '1. عدم توفر سوائل.' },
+                            { en: '2. Available fluids not drinkable.', ar: '2. السوائل المتاحة غير صالحة للشرب.' },
+                            { en: '3. Inability to take fluids independently.', ar: '3. عدم القدرة على تناول السوائل بشكل مستقل.' },
+                            { en: '4. No response to thirst; does not recognize the need for fluids.', ar: '4. عدم الاستجابة للعطش؛ لا يدرك الحاجة للسوائل.' },
+                            { en: '5. Aphasia.', ar: '5. فقدان القدرة على الكلام (الحبسة).' },
+                            { en: '6. Weakness, comatose.', ar: '6. ضعف، غيبوبة.' },
+                            { en: '7. Inability to swallow.', ar: '7. عدم القدرة على البلع.' },
+                            { en: '8. Psychological alterations.', ar: '8. تغيرات نفسية.' },
+                            { en: '9. Overuse of diuretics.', ar: '9. الإفراط في استخدام مدرات البول.' },
+                            { en: '10. Increased vomiting and fever.', ar: '10. زيادة القيء والحمى.' },
+                            { en: '11. Wounds, burns, blood loss and endocrine abnormalities.', ar: '11. الجروح، الحروق، فقدان الدم واضطرابات الغدد الصماء.' }
+                        ], 'عوامل خطر نقص حجم السوائل:'),
+                        card('Assessment of FVD — Subjective Data · تقييم نقص حجم السوائل — بيانات ذاتية', [
+                            { en: 'a. <span class="highlight-text">Thirst</span>.', ar: 'أ. <span class="highlight-text">العطش</span>.' },
+                            { en: 'b. <span class="highlight-text">Dizziness</span>.', ar: 'ب. <span class="highlight-text">الدوخة</span>.' },
+                            { en: 'c. <span class="highlight-text">Numbness and tingling</span> of hands and feet.', ar: 'ج. <span class="highlight-text">التنميل والوخز</span> في اليدين والقدمين.' },
+                            { en: 'd. <span class="highlight-text">Anorexia and nausea</span>.', ar: 'د. <span class="highlight-text">فقدان الشهية والغثيان</span>.' },
+                            { en: 'e. <span class="highlight-text">Abdominal cramps</span>.', ar: 'هـ. <span class="highlight-text">تقلصات البطن</span>.' }
+                        ], 'تقييم نقص حجم السوائل — بيانات ذاتية:'),
+                        card('Assessment of FVD — Objective Data · تقييم نقص حجم السوائل — بيانات موضوعية', [
+                            { en: 'a. <span class="highlight-text">Loss of body weight</span>.', ar: 'أ. <span class="highlight-text">فقدان وزن الجسم</span>.' },
+                            { en: 'b. Vital signs: <span class="highlight-text">Decreased BP; postural changes; increased temperature; irregular, weak, rapid pulse</span>.', ar: 'ب. العلامات الحيوية: <span class="highlight-text">انخفاض ضغط الدم؛ تغيرات وضعية؛ ارتفاع الحرارة؛ نبض غير منتظم، ضعيف، سريع</span>.' },
+                            { en: 'c. <span class="highlight-text">Increased rate and depth of respirations</span>.', ar: 'ج. <span class="highlight-text">زيادة معدل وعمق التنفس</span>.' },
+                            { en: 'd. Skin: <span class="highlight-text">cool and pale</span> in absence of infection; <span class="highlight-text">decreased turgor</span>.', ar: 'د. الجلد: <span class="highlight-text">بارد وشاحب</span> في غياب العدوى؛ <span class="highlight-text">انخفاض مرونة الجلد</span>.' },
+                            { en: 'e. Urine: <span class="highlight-text">Oliguria to anuria</span>, high specific gravity.', ar: 'هـ. البول: <span class="highlight-text">قلة البول إلى انعدامه</span>، كثافة نوعية عالية.' },
+                            { en: 'f. Eyes: <span class="highlight-text">soft, sunken</span>.', ar: 'و. العيون: <span class="highlight-text">لينة، غائرة</span>.' },
+                            { en: 'g. Tongue: <span class="highlight-text">furrows</span>.', ar: 'ز. اللسان: <span class="highlight-text">أخاديد</span>.' }
+                        ], 'تقييم نقص حجم السوائل — بيانات موضوعية:'),
+                        card('Lab Data of FVD · البيانات المختبرية لنقص حجم السوائل', [
+                            { en: 'Blood: <span class="highlight-text">increased hematocrit and BUN</span>.', ar: 'الدم: <span class="highlight-text">زيادة الهيماتوكريت والنيتروجين اليوريمي (BUN)</span>.' },
+                            { en: 'Urine: <span class="highlight-text">decreased</span> output.', ar: 'البول: <span class="highlight-text">انخفاض</span> الإخراج.' }
+                        ], 'البيانات المختبرية لنقص حجم السوائل:'),
+                        card('B. Fluid Volume Excess (Fluid Overload) · زيادة حجم السوائل (الحمل الزائد)', [
+                            { en: 'Most common cause is an <span class="highlight-text">increase in sodium</span>.', ar: 'السبب الأكثر شيوعاً هو <span class="highlight-text">زيادة الصوديوم</span>.' },
+                            { en: 'Excessive quantities of fluid and electrolytes may be due to <span class="highlight-text">increased ingestion, tube feedings, intravenous infusions, multiple tap-water enemas</span>.', ar: 'كميات مفرطة من السوائل والإلكتروليتات قد تكون بسبب <span class="highlight-text">زيادة التناول، التغذية الأنبوبية، الحقن الوريدي، الحقن الشرجية المتعددة بماء الصنبور</span>.' },
+                            { en: 'Failure of regulatory systems, resulting in inability to excrete excesses.', ar: 'فشل الأنظمة التنظيمية، مما يؤدي إلى عدم القدرة على إخراج الفائض.' }
+                        ], 'ب. زيادة حجم السوائل (الحمل الزائد):'),
+                        card('Risk Factors of FVE · عوامل خطر زيادة حجم السوائل', [
+                            { en: '1. Excessive intake of <span class="highlight-text">electrolyte-free fluids</span>.', ar: '1. تناول مفرط لـ<span class="highlight-text">سوائل خالية من الإلكتروليتات</span>.' },
+                            { en: '2. Increased secretion of <span class="highlight-text">ADH</span> in response to stress, drugs, and anesthetics.', ar: '2. زيادة إفراز <span class="highlight-text">ADH</span> استجابةً للتوتر والأدوية والتخدير.' },
+                            { en: '3. Decreased or inadequate output of urine.', ar: '3. انخفاض أو عدم كفاية إخراج البول.' },
+                            { en: '4. <span class="highlight-text">Psychogenic polydipsia</span>.', ar: '4. <span class="highlight-text">العطش النفسي المنشأ</span>.' },
+                            { en: '5. Certain medical conditions: tuberculosis; encephalitis; meningitis; endocrine disturbances; tumors of lung, pancreas, duodenum, heart failure.', ar: '5. حالات طبية معينة: السل؛ التهاب الدماغ؛ التهاب السحايا؛ اضطرابات الغدد الصماء؛ أورام الرئة والبنكرياس والاثني عشر، قصور القلب.' },
+                            { en: '6. Inadequate kidney function or kidney failure.', ar: '6. عدم كفاية وظيفة الكلى أو فشل كلوي.' }
+                        ], 'عوامل خطر زيادة حجم السوائل:'),
+                        card('Assessment of FVE — Subjective Data · تقييم زيادة حجم السوائل — بيانات ذاتية', [
+                            { en: 'a. Behavioral changes: <span class="highlight-text">irritability, apathy, confusion, disorientation</span>.', ar: 'أ. تغيرات سلوكية: <span class="highlight-text">التهيج، اللامبالاة، الارتباك، التشوش</span>.' },
+                            { en: 'b. <span class="highlight-text">Headache</span>.', ar: 'ب. <span class="highlight-text">صداع</span>.' },
+                            { en: 'c. <span class="highlight-text">Anorexia, nausea, cramping</span>.', ar: 'ج. <span class="highlight-text">فقدان الشهية، غثيان، تقلصات</span>.' },
+                            { en: 'd. <span class="highlight-text">Fatigue</span>.', ar: 'د. <span class="highlight-text">إرهاق</span>.' },
+                            { en: 'e. <span class="highlight-text">Dyspnea</span>.', ar: 'هـ. <span class="highlight-text">ضيق التنفس</span>.' }
+                        ], 'تقييم زيادة حجم السوائل — بيانات ذاتية:'),
+                        card('Assessment of FVE — Objective Data · تقييم زيادة حجم السوائل — بيانات موضوعية', [
+                            { en: 'a. Vital signs: <span class="highlight-text">elevated blood pressure</span>.', ar: 'أ. العلامات الحيوية: <span class="highlight-text">ارتفاع ضغط الدم</span>.' },
+                            { en: 'b. Skin: <span class="highlight-text">warm, moist; edema</span>—eyelids, facial, dependent, pitting.', ar: 'ب. الجلد: <span class="highlight-text">دافئ، رطب؛ وذمة</span>—الجفون، الوجه، الاعتمادية، الانطباعية.' },
+                            { en: 'c. Sudden weight gain of <span class="highlight-text">5 lb</span>.', ar: 'ج. زيادة مفاجئة في الوزن بمقدار <span class="highlight-text">5 أرطال</span>.' },
+                            { en: 'd. <span class="highlight-text">Pink, frothy sputum</span>; productive.', ar: 'د. <span class="highlight-text">بلغم وردي رغوي</span>؛ منتج.' },
+                            { en: 'e. <span class="highlight-text">Constant, irritating cough</span>.', ar: 'هـ. <span class="highlight-text">سعال مستمر ومهيج</span>.' },
+                            { en: 'f. <span class="highlight-text">Crackles in lungs</span>.', ar: 'و. <span class="highlight-text">خراخر في الرئتين</span>.' },
+                            { en: 'g. Pulse, <span class="highlight-text">bounding</span>.', ar: 'ز. النبض، <span class="highlight-text">قافز</span>.' },
+                            { en: 'h. <span class="highlight-text">Engorgement of neck veins</span> in sitting position.', ar: 'ح. <span class="highlight-text">امتلاء أوردة الرقبة</span> في وضع الجلوس.' },
+                            { en: 'i. Urine: <span class="highlight-text">polyuria, nocturia</span>.', ar: 'ط. البول: <span class="highlight-text">كثرة البول، التبول الليلي</span>.' }
+                        ], 'تقييم زيادة حجم السوائل — بيانات موضوعية:'),
+                        card('Lab Data of FVE · البيانات المختبرية لزيادة حجم السوائل', [
+                            { en: 'Blood: <span class="highlight-text">decreasing hematocrit, BUN</span>.', ar: 'الدم: <span class="highlight-text">انخفاض الهيماتوكريت، BUN</span>.' },
+                            { en: 'Urine: <span class="highlight-text">decreasing specific gravity</span>.', ar: 'البول: <span class="highlight-text">انخفاض الكثافة النوعية</span>.' }
+                        ], 'البيانات المختبرية لزيادة حجم السوائل:')
+                    ]
+                },
+                {
+                    title: 'Electrolyte Imbalances · اختلالات الإلكتروليتات',
+                    cards: [
+                        card('Electrolyte Imbalance Definitions · تعريفات اختلالات الإلكتروليتات', [
+                            { en: '<span class="highlight-text">Hyponatremia:</span> sodium (Na) level is less than <span class="highlight-text">135 mEq/L</span> (sodium loss or water excess) — occurs with profuse diaphoresis with ingestion of plain water.', ar: '<span class="highlight-text">نقص الصوديوم:</span> مستوى الصوديوم (Na) أقل من <span class="highlight-text">135 ملي مكافئ/لتر</span> (فقدان الصوديوم أو زيادة الماء) — يحدث مع التعرق الغزير مع تناول الماء العادي.' },
+                            { en: '<span class="highlight-text">Hypernatremia:</span> sodium (Na) more than <span class="highlight-text">145 mEq/L</span>.', ar: '<span class="highlight-text">فرط الصوديوم:</span> الصوديوم (Na) أكثر من <span class="highlight-text">145 ملي مكافئ/لتر</span>.' },
+                            { en: '<span class="highlight-text">Hypokalemia:</span> serum potassium (K) less than <span class="highlight-text">3.5 mEq/L</span>.', ar: '<span class="highlight-text">نقص البوتاسيوم:</span> بوتاسيوم المصل (K) أقل من <span class="highlight-text">3.5 ملي مكافئ/لتر</span>.' },
+                            { en: '<span class="highlight-text">Hyperkalemia:</span> high serum K+ more than <span class="highlight-text">5.0 mEq/L</span>.', ar: '<span class="highlight-text">فرط البوتاسيوم:</span> بوتاسيوم المصل العالي أكثر من <span class="highlight-text">5.0 ملي مكافئ/لتر</span>.' },
+                            { en: '<span class="highlight-text">Hypocalcemia:</span> serum Ca+ levels less than <span class="highlight-text">8 mg/dL</span>.', ar: '<span class="highlight-text">نقص الكالسيوم:</span> مستويات الكالسيوم في المصل أقل من <span class="highlight-text">8 ملغ/دل</span>.' },
+                            { en: '<span class="highlight-text">Hypercalcemia:</span> high serum Ca+ levels more than <span class="highlight-text">10.5 mg/dL</span>.', ar: '<span class="highlight-text">فرط الكالسيوم:</span> مستويات الكالسيوم في المصل العالية أكثر من <span class="highlight-text">10.5 ملغ/دل</span>.' },
+                            { en: '<span class="highlight-text">Hypophosphatemia:</span> low serum PO4.', ar: '<span class="highlight-text">نقص الفوسفات:</span> انخفاض PO4 في المصل.' },
+                            { en: '<span class="highlight-text">Hyperphosphatemia:</span> serum PO4 more than <span class="highlight-text">4.5 mg/dL</span>.', ar: '<span class="highlight-text">فرط الفوسفات:</span> PO4 في المصل أكثر من <span class="highlight-text">4.5 ملغ/دل</span>.' },
+                            { en: '<span class="highlight-text">Hypomagnesemia:</span> Magnesium deficit.', ar: '<span class="highlight-text">نقص المغنيسيوم:</span> عجز المغنيسيوم.' },
+                            { en: '<span class="highlight-text">Hypermagnesemia:</span> Magnesium excess.', ar: '<span class="highlight-text">فرط المغنيسيوم:</span> زيادة المغنيسيوم.' }
+                        ], 'تعريفات اختلالات الإلكتروليتات:')
+                    ]
+                },
+                {
+                    title: 'Clinical Manifestations of Calcium Imbalances · المظاهر السريرية لاختلالات الكالسيوم',
+                    cards: [
+                        card('HYPOCALCEMIA · نقص الكالسيوم', [
+                            { en: '<span class="highlight-text">CNS and Muscular:</span> Anxiety, irritability; tetany, muscle twitching (Chvostek\'s sign); numbness and tingling; carpopedal spasm (Trousseau\'s sign); convulsions; abdominal and muscle cramps.', ar: '<span class="highlight-text">الجهاز العصبي المركزي والعضلي:</span> القلق، التهيج؛ تكزز، ارتعاش عضلي (علامة شفوستيك)؛ تنميل ووخز؛ تشنج رسغي قدمي (علامة تروسو)؛ تشنجات؛ تقلصات بطنية وعضلية.' },
+                            { en: '<span class="highlight-text">Cardiac:</span> Weak contractions; ECG lengthened ST segment and prolonged QT interval.', ar: '<span class="highlight-text">القلب:</span> انقباضات ضعيفة؛ تخطيط القلب يظهر إطالة قطعة ST وإطالة فترة QT.' },
+                            { en: '<span class="highlight-text">Blood:</span> Reduction in prothrombin (reduced clotting).', ar: '<span class="highlight-text">الدم:</span> انخفاض البروثرومبين (انخفاض التجلط).' },
+                            { en: '<span class="highlight-text">Bone:</span> With prolonged deficiency — fractures occur easily.', ar: '<span class="highlight-text">العظام:</span> مع النقص المطول — تحدث الكسور بسهولة.' }
+                        ], 'نقص الكالسيوم:'),
+                        card('HYPERCALCEMIA · فرط الكالسيوم', [
+                            { en: '<span class="highlight-text">CNS and Muscular:</span> Depression/apathy; weak, flabby muscles.', ar: '<span class="highlight-text">الجهاز العصبي المركزي والعضلي:</span> اكتئاب/لامبالاة؛ عضلات ضعيفة مترهلة.' },
+                            { en: '<span class="highlight-text">Cardiac:</span> Signs of heart block; cardiac arrest in systole; decreased or diminished ST segment and shortened QT interval.', ar: '<span class="highlight-text">القلب:</span> علامات إحصار القلب؛ توقف القلب في الانقباض؛ انخفاض أو تضاؤل قطعة ST وقصر فترة QT.' },
+                            { en: '<span class="highlight-text">Bone:</span> Pathologic fracture; deep pain over bony areas; thinning of bones.', ar: '<span class="highlight-text">العظام:</span> كسور مرضية؛ ألم عميق فوق مناطق العظام؛ ترقق العظام.' },
+                            { en: '<span class="highlight-text">Renal:</span> Flank pain; calcium stones in kidney.', ar: '<span class="highlight-text">الكلى:</span> ألم في الخاصرة؛ حصوات كالسيوم في الكلى.' }
+                        ], 'فرط الكالسيوم:')
+                    ]
+                },
+                {
+                    title: 'Clinical Manifestations of Potassium Imbalances · المظاهر السريرية لاختلالات البوتاسيوم',
+                    cards: [
+                        card('Hypokalemia · نقص البوتاسيوم', [
+                            { en: '<span class="highlight-text">GI:</span> Anorexia, N/V, diarrhea, abdominal distention, decreased peristalsis or ileus.', ar: '<span class="highlight-text">الجهاز الهضمي:</span> فقدان الشهية، غثيان/قيء، إسهال، انتفاخ البطن، انخفاض الحركة الدودية أو انسداد معوي.' },
+                            { en: '<span class="highlight-text">Cardiac:</span> Dysrhythmias, vertigo (dizziness), cardiac arrest.', ar: '<span class="highlight-text">القلب:</span> اضطرابات نظم القلب، دوار، توقف القلب.' },
+                            { en: '<span class="highlight-text">ECG:</span> Flat or inverted T waves, depressed ST.', ar: '<span class="highlight-text">تخطيط القلب:</span> موجات T مسطحة أو مقلوبة، انخفاض ST.' },
+                            { en: '<span class="highlight-text">Renal:</span> Polyuria.', ar: '<span class="highlight-text">الكلى:</span> كثرة البول.' },
+                            { en: '<span class="highlight-text">Neuromuscular:</span> Malaise, drowsiness, muscular weakness, confusion, mental depression, diminished deep tendon reflexes, respiratory paralysis.', ar: '<span class="highlight-text">العصبي العضلي:</span> توعك، نعاس، ضعف عضلي، ارتباك، اكتئاب نفسي، انخفاض المنعكسات الوترية العميقة، شلل تنفسي.' },
+                            { en: '<span class="highlight-text">Lab Values:</span> < 3.5 mEq/L; Alkalosis.', ar: '<span class="highlight-text">القيم المختبرية:</span> أقل من 3.5 ملي مكافئ/لتر؛ قلاء.' }
+                        ], 'نقص البوتاسيوم:'),
+                        card('Hyperkalemia · فرط البوتاسيوم', [
+                            { en: '<span class="highlight-text">GI:</span> Nausea, diarrhea, abdominal cramps.', ar: '<span class="highlight-text">الجهاز الهضمي:</span> غثيان، إسهال، تقلصات بطنية.' },
+                            { en: '<span class="highlight-text">Cardiac:</span> Tachycardia, then bradycardia and then cardiac arrest.', ar: '<span class="highlight-text">القلب:</span> تسرع القلب، ثم بطء القلب ثم توقف القلب.' },
+                            { en: '<span class="highlight-text">ECG:</span> Peaked T waves, shortened QT interval, prolonged PR followed by disappearance of the P wave, prolonged QRS.', ar: '<span class="highlight-text">تخطيط القلب:</span> موجات T مدببة، قصر فترة QT، إطالة PR يتبعها اختفاء موجة P، إطالة QRS.' },
+                            { en: '<span class="highlight-text">Renal:</span> Oliguria or anuria.', ar: '<span class="highlight-text">الكلى:</span> قلة البول أو انعدامه.' },
+                            { en: '<span class="highlight-text">Neuromuscular:</span> Weakness, numbness or tingling sensation, muscle cramps.', ar: '<span class="highlight-text">العصبي العضلي:</span> ضعف، تنميل أو وخز، تقلصات عضلية.' },
+                            { en: '<span class="highlight-text">Lab Values:</span> > 5.0 mEq/L; Acidosis.', ar: '<span class="highlight-text">القيم المختبرية:</span> أكثر من 5.0 ملي مكافئ/لتر؛ حماض.' }
+                        ], 'فرط البوتاسيوم:')
+                    ]
+                }
+            ]
+        };
+
+        // ================================================================
+        //  BUILD APP
+        // ================================================================
+        const slidesData = { fluid: fluidData };
+        const sectionOrder = ['fluid'];
+
+        function renderSlideContent(slide) {
+            if (slide.cards && Array.isArray(slide.cards)) {
+                return createSlideHTML(slide.title, slide.cards.join(''));
+            }
+            return createSlideHTML(slide.title, '');
+        }
+
+        function buildApp() {
+            const tabsContainer = document.getElementById('tabsContainer');
+            const sectionsContainer = document.getElementById('sectionsContainer');
+
+            sectionOrder.forEach((secId) => {
+                const sec = slidesData[secId];
+                if (!sec) return;
+
+                const tab = document.createElement('button');
+                tab.className = 'tab-btn active';
+                tab.innerHTML = `<span class="en">${sec.titleEn}</span><span class="ar">${sec.titleAr}</span>`;
+                tabsContainer.appendChild(tab);
+
+                const cardEl = document.createElement('div');
+                cardEl.className = 'card active';
+                cardEl.id = `section-${secId}`;
+
+                const slidesHTML = sec.slides.map(s => renderSlideContent(s)).join('');
+                const totalSlides = sec.slides.length;
+
+                cardEl.innerHTML = `
+                    <h2>${sec.titleEn} · ${sec.titleAr}</h2>
+                    <div class="slide-container" id="slideContainer-${secId}">
+                        <div class="slide-progress">
+                            <span style="font-weight:600;">التقدم</span>
+                            <div class="bar"><div class="fill" style="width:0%;"></div></div>
+                            <span class="count">1 / ${totalSlides}</span>
+                        </div>
+                        ${slidesHTML}
+                        <div class="slide-nav">
+                            <button class="btn-nav prev" onclick="goToSlide('${secId}', 'slideContainer-${secId}', slideState['${secId}'].current - 1)">السابق</button>
+                            <button class="btn-nav next primary" onclick="goToSlide('${secId}', 'slideContainer-${secId}', slideState['${secId}'].current + 1)">التالي</button>
+                        </div>
+                    </div>
+                `;
+                sectionsContainer.appendChild(cardEl);
+
+                initSlideState(secId, totalSlides);
+                setTimeout(() => renderSlide(secId, `slideContainer-${secId}`), 50);
+            });
+        }
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        applyTheme(localStorage.getItem('theme') || 'dark');
+        buildApp();
+
+        window.goToSlide = goToSlide;
+        window.slideState = slideState;
+        window.toggleTheme = toggleTheme;
+        window.toggleCardTranslation = toggleCardTranslation;
+    </script>
+</body>
+</html>
